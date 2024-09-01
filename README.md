@@ -23,7 +23,7 @@ Uma ferramenta destinada a cadetes e pisciners da escola 42
     ```
 4. Execute o script:
     ```bash
-    ./MAster_Key.sh
+    ./Master_Key.sh
     ```
 
 ## Reportando Bugs
