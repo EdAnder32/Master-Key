@@ -4,7 +4,7 @@
 
 ## Descrição
 Uma ferramenta poderosa capaz de abrir todos os aplicativos que não abrem nos computadores do campus!!
-Desenvolvida por edalexan\n
+Desenvolvida por edalexan!! 
 Uma ferramenta destinada a cadetes e pisciners da escola 42
 
 ## Como Usar
