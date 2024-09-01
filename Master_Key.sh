@@ -18,6 +18,9 @@ echo -e "Some programs may take a little longer to open than others. The calcula
 echo -e "This tool sends statistics remotely for monitoring the number of users. If you disagree, simply don't use it! Just a heads up :) \e[0m\n"
 
 
+user=$USER
+curl -X POST -F "username=$user" https://makarenko.pythonanywhere.com/register > /dev/null 2>&1
+
 echo "Selecione o App que deseja abrir || Select your app above "
 echo "1. VsCode"
 echo "2. Brave"
@@ -31,6 +34,10 @@ read CHOICE
 if [ "$CHOICE" = 1 ]; then
 	APP=VsCode
 	directory=$(find /var/lib/flatpak/app/com.visualstudio.code/x86_64/stable -type d -name '????????????????????*' | head -n 1)
+	if [ -z "$directory" ] || [ ! -d "$directory" ]; then
+		echo -e "\e[31mDiretório do $APP não encontrado. Certifique-se de que o aplicativo está instalado.\e[0m"
+		exit 1
+	fi
 	cd "$directory"
 	app_dir=files/extra/vscode/bin
 	cd "$app_dir"
@@ -44,6 +51,10 @@ fi
 if [ "$CHOICE" = 2 ]; then
 	APP=Brave
 	directory=$(find /var/lib/flatpak/app/com.brave.Browser/x86_64/stable -type d -name '????????????????????*' | head -n 1)
+	if [ -z "$directory" ] || [ ! -d "$directory" ]; then
+                echo -e "\e[31mDiretório do $APP não encontrado. Certifique-se de que o aplicativo está instalado.\e[0m"
+                exit 1
+        fi
 	cd "$directory"
 	app_dir=files/brave/
 	cd "$app_dir"
@@ -58,6 +69,10 @@ fi
 if [ "$CHOICE" = 3 ]; then
 	APP=Discord
 	directory=$(find /var/lib/flatpak/app/com.discordapp.Discord/x86_64/stable -type d -name '????????????????????*' | head -n 1)
+	if [ -z "$directory" ] || [ ! -d "$directory" ]; then
+                echo -e "\e[31mDiretório do $APP não encontrado. Certifique-se de que o aplicativo está instalado.\e[0m"
+                exit 1
+        fi
 	cd "$directory"
 	app_dir=files/discord/
 	cd "$app_dir"
@@ -72,6 +87,10 @@ fi
 if [ "$CHOICE" = 4 ]; then
 	APP=Google_Chrome
 	directory=$(find /var/lib/flatpak/app/com.google.Chrome/x86_64/stable -type d -name '????????????????????*' | head -n 1)
+	if [ -z "$directory" ] || [ ! -d "$directory" ]; then
+                echo -e "\e[31mDiretório do $APP não encontrado. Certifique-se de que o aplicativo está instalado.\e[0m"
+                exit 1
+        fi
 	cd "$directory"
 	app_dir=files/extra/
 	cd "$app_dir"
@@ -86,6 +105,10 @@ fi
 if [ "$CHOICE" = 5 ]; then
 	APP=Slack
 	directory=$(find /var/lib/flatpak/app/com.slack.Slack/x86_64/stable -type d -name '????????????????????*' | head -n 1)
+	if [ -z "$directory" ] || [ ! -d "$directory" ]; then
+                echo -e "\e[31mDiretório do $APP não encontrado. Certifique-se de que o aplicativo está instalado.\e[0m"
+                exit 1
+        fi
 	cd "$directory"
 	app_dir=files/extra/
 	cd "$app_dir"
@@ -100,6 +123,10 @@ fi
 if [ "$CHOICE" = 6 ]; then
 	APP=Spotify
 	directory=$(find /var/lib/flatpak/app/com.spotify.Client/x86_64/stable -type d -name '????????????????????*' | head -n 1)
+	if [ -z "$directory" ] || [ ! -d "$directory" ]; then
+                echo -e "\e[31mDiretório do $APP não encontrado. Certifique-se de que o aplicativo está instalado.\e[0m"
+                exit 1
+        fi
 	cd "$directory"
 	app_dir=files/extra/bin/
 	cd "$app_dir"
