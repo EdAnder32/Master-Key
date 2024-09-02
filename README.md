@@ -17,9 +17,9 @@ Uma ferramenta destinada a cadetes e pisciners da escola 42
     ```bash
     cd Master-Key
     ```
-3. Dê permissões de execução ao arquivo `MAster_Key.sh`:
+3. Dê permissões de execução ao arquivo `Master_Key.sh`:
     ```bash
-    chmod 777 MAster_Key.sh
+    chmod 777 Master_Key.sh
     ```
 4. Execute o script:
     ```bash
