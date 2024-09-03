@@ -142,14 +142,14 @@ fi
 if [ "$CHOICE" = 7 ]; then
 	APP=Google_Chrome
 	directory=$(find .config/google-chrome -type d -name '????????????????????*' | head -n 1)
-	if [ -z "$directory" ] || [ ! -d "$directory" ]; então
+	if [ -z "$directory" ] || [ ! -d "$directory" ]; then
                 echo -e "\e[31mDiretório do $APP não encontrado. Certifique-se de que o aplicativo está instalado.\e[0m"
                 exit 1
         fi
 	cd "$directory"
 	
 	# Remove o arquivo SingletonLock
-	if [ -f "SingletonLock" ]; então
+	if [ -f "SingletonLock" ]; then
 		rm SingletonLock
 		echo -e "\e[32mArquivo SingletonLock removido com sucesso!\e[0m"
 	else
@@ -157,7 +157,7 @@ if [ "$CHOICE" = 7 ]; then
 	fi
 
 	# Verifica se a remoção foi bem-sucedida e abre o Google Chrome
-	if [ ! -f "SingletonLock" ]; então
+	if [ ! -f "SingletonLock" ]; then
 		nohup google-chrome > /dev/null 2>&1 &
 		disown
 		echo -e "\e[32m$APP aberto com sucesso!\e[0m"
