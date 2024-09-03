@@ -141,7 +141,7 @@ fi
 
 if [ "$CHOICE" = 7 ]; then
 	APP=Google_Chrome
-	directory=$(find .config/google-chrome -type d -name '????????????????????*' | head -n 1)
+	directory=~/.config/google-chrome
 	if [ -z "$directory" ] || [ ! -d "$directory" ]; then
                 echo -e "\e[31mDiretório do $APP não encontrado. Certifique-se de que o aplicativo está instalado.\e[0m"
                 exit 1
@@ -158,9 +158,20 @@ if [ "$CHOICE" = 7 ]; then
 
 	# Verifica se a remoção foi bem-sucedida e abre o Google Chrome
 	if [ ! -f "SingletonLock" ]; then
-		nohup google-chrome > /dev/null 2>&1 &
-		disown
+		APP=Google_Chrome
+		directory=$(find /var/lib/flatpak/app/com.google.Chrome/x86_64/stable -type d -name '????????????????????*' | head -n 1)
+		if [ -z "$directory" ] || [ ! -d "$directory" ]; then
+           	     echo -e "\e[31mDiretório do $APP não encontrado. Certifique-se de que o aplicativo está instalado.\e[0m"
+          	      exit 1
+    	    	fi
+		cd "$directory"
+		app_dir=files/extra/
+		cd "$app_dir"
+		nohup ./chrome> /dev/null 2>&1 &
+   		disown
+		clear
 		echo -e "\e[32m$APP aberto com sucesso!\e[0m"
+		echo -e "Link : \e[34mhttps://github.com/EdAnder32/Master-Key\e[0m"
 	else
 		echo -e "\e[31mNão foi possível abrir o $APP porque o arquivo SingletonLock ainda existe.\e[0m"
 	fi
