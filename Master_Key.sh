@@ -28,7 +28,6 @@ echo "3. Discord"
 echo "4. Google Chrome"
 echo "5. Slack"
 echo "6. Spotify"
-echo "7. Google Chrome (solução 2)"
 
 read CHOICE
 
@@ -87,60 +86,6 @@ fi
 
 if [ "$CHOICE" = 4 ]; then
 	APP=Google_Chrome
-	directory=$(find /var/lib/flatpak/app/com.google.Chrome/x86_64/stable -type d -name '????????????????????*' | head -n 1)
-	if [ -z "$directory" ] || [ ! -d "$directory" ]; then
-                echo -e "\e[31mDiretório do $APP não encontrado. Certifique-se de que o aplicativo está instalado.\e[0m"
-                exit 1
-        fi
-	cd "$directory"
-	app_dir=files/extra/
-	cd "$app_dir"
-	nohup ./chrome> /dev/null 2>&1 &
-   	disown
-	clear
-	echo -e "\e[32m$APP aberto com sucesso!\e[0m"
-	echo "Se gostou, Deixe uma estrela no meu GitHub :)"
-	echo -e "Link : \e[34mhttps://github.com/EdAnder32/Master-Key\e[0m"
-fi
-
-if [ "$CHOICE" = 5 ]; then
-	APP=Slack
-	directory=$(find /var/lib/flatpak/app/com.slack.Slack/x86_64/stable -type d -name '????????????????????*' | head -n 1)
-	if [ -z "$directory" ] || [ ! -d "$directory" ]; then
-                echo -e "\e[31mDiretório do $APP não encontrado. Certifique-se de que o aplicativo está instalado.\e[0m"
-                exit 1
-        fi
-	cd "$directory"
-	app_dir=files/extra/
-	cd "$app_dir"
-	nohup ./slack > /dev/null 2>&1 &
-   	disown
-	clear
-	echo -e "\e[32m$APP aberto com sucesso!\e[0m"
-	echo "Se gostou, Deixe uma estrela no meu GitHub :)"
-	echo -e "Link : \e[34mhttps://github.com/EdAnder32/Master-Key\e[0m"
-fi
-
-if [ "$CHOICE" = 6 ]; then
-	APP=Spotify
-	directory=$(find /var/lib/flatpak/app/com.spotify.Client/x86_64/stable -type d -name '????????????????????*' | head -n 1)
-	if [ -z "$directory" ] || [ ! -d "$directory" ]; then
-                echo -e "\e[31mDiretório do $APP não encontrado. Certifique-se de que o aplicativo está instalado.\e[0m"
-                exit 1
-        fi
-	cd "$directory"
-	app_dir=files/extra/bin/
-	cd "$app_dir"
-	nohup ./spotify > /dev/null 2>&1 &
-   	disown
-	clear
-	echo -e "\e[32m$APP aberto com sucesso!\e[0m"
-	echo "Se gostou, Deixe uma estrela no meu GitHub :)"
-	echo -e "Link : \e[34mhttps://github.com/EdAnder32/Master-Key\e[0m"
-fi
-
-if [ "$CHOICE" = 7 ]; then
-	APP=Google_Chrome
 	directory=~/.config/google-chrome
 	if [ -z "$directory" ] || [ ! -d "$directory" ]; then
                 echo -e "\e[31mDiretório do $APP não encontrado. Certifique-se de que o aplicativo está instalado.\e[0m"
@@ -177,6 +122,42 @@ if [ "$CHOICE" = 7 ]; then
 	fi
 	
 	clear
+	echo "Se gostou, Deixe uma estrela no meu GitHub :)"
+	echo -e "Link : \e[34mhttps://github.com/EdAnder32/Master-Key\e[0m"
+fi
+
+if [ "$CHOICE" = 5 ]; then
+	APP=Slack
+	directory=$(find /var/lib/flatpak/app/com.slack.Slack/x86_64/stable -type d -name '????????????????????*' | head -n 1)
+	if [ -z "$directory" ] || [ ! -d "$directory" ]; then
+                echo -e "\e[31mDiretório do $APP não encontrado. Certifique-se de que o aplicativo está instalado.\e[0m"
+                exit 1
+        fi
+	cd "$directory"
+	app_dir=files/extra/
+	cd "$app_dir"
+	nohup ./slack > /dev/null 2>&1 &
+   	disown
+	clear
+	echo -e "\e[32m$APP aberto com sucesso!\e[0m"
+	echo "Se gostou, Deixe uma estrela no meu GitHub :)"
+	echo -e "Link : \e[34mhttps://github.com/EdAnder32/Master-Key\e[0m"
+fi
+
+if [ "$CHOICE" = 6 ]; then
+	APP=Spotify
+	directory=$(find /var/lib/flatpak/app/com.spotify.Client/x86_64/stable -type d -name '????????????????????*' | head -n 1)
+	if [ -z "$directory" ] || [ ! -d "$directory" ]; then
+                echo -e "\e[31mDiretório do $APP não encontrado. Certifique-se de que o aplicativo está instalado.\e[0m"
+                exit 1
+        fi
+	cd "$directory"
+	app_dir=files/extra/bin/
+	cd "$app_dir"
+	nohup ./spotify > /dev/null 2>&1 &
+   	disown
+	clear
+	echo -e "\e[32m$APP aberto com sucesso!\e[0m"
 	echo "Se gostou, Deixe uma estrela no meu GitHub :)"
 	echo -e "Link : \e[34mhttps://github.com/EdAnder32/Master-Key\e[0m"
 fi
