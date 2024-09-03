@@ -28,6 +28,7 @@ echo "3. Discord"
 echo "4. Google Chrome"
 echo "5. Slack"
 echo "6. Spotify"
+echo "7. Google Chrome (solução 2)"
 
 read CHOICE
 
@@ -134,6 +135,37 @@ if [ "$CHOICE" = 6 ]; then
    	disown
 	clear
 	echo -e "\e[32m$APP aberto com sucesso!\e[0m"
+	echo "Se gostou, Deixe uma estrela no meu GitHub :)"
+	echo -e "Link : \e[34mhttps://github.com/EdAnder32/Master-Key\e[0m"
+fi
+
+if [ "$CHOICE" = 7 ]; then
+	APP=Google_Chrome
+	directory=$(find .config/google-chrome -type d -name '????????????????????*' | head -n 1)
+	if [ -z "$directory" ] || [ ! -d "$directory" ]; then
+                echo -e "\e[31mDiretório do $APP não encontrado. Certifique-se de que o aplicativo está instalado.\e[0m"
+                exit 1
+        fi
+	cd "$directory"
+	
+	# Remove o arquivo SingletonLock
+	if [ -f "SingletonLock" ]; then
+		rm SingletonLock
+		echo -e "\e[32mArquivo SingletonLock removido com sucesso!\e[0m"
+	else
+		echo -e "\e[33mArquivo SingletonLock não encontrado.\e[0m"
+	fi
+
+	# Verifica se a remoção foi bem-sucedida e abre o Google Chrome
+	if [ ! -f "SingletonLock" ]; then
+		nohup google-chrome > /dev/null 2>&1 &
+		disown
+		echo -e "\e[32m$APP aberto com sucesso!\e[0m"
+	else
+		echo -e "\e[31mNão foi possível abrir o $APP porque o arquivo SingletonLock ainda existe.\e[0m"
+	fi
+	
+	clear
 	echo "Se gostou, Deixe uma estrela no meu GitHub :)"
 	echo -e "Link : \e[34mhttps://github.com/EdAnder32/Master-Key\e[0m"
 fi
