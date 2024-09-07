@@ -60,12 +60,7 @@ case "$program" in
             exit 1
         fi
         cd "$directory"
-        if [ -f "SingletonLock" ]; then
-            rm SingletonLock
-            echo -e "${GREEN}Arquivo SingletonLock removido com sucesso!${RESET}"
-        else
-            echo -e "${CYAN}Arquivo SingletonLock não encontrado.${RESET}"
-        fi
+	rm SingletonLock
         if [ ! -f "SingletonLock" ]; then
             directory=$(find /var/lib/flatpak/app/com.google.Chrome/x86_64/stable -type d -name '????????????????????*' | head -n 1)
             if [ -z "$directory" ] || [ ! -d "$directory" ]; then
