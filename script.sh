@@ -5,8 +5,8 @@ GREEN='\033[0;32m'
 CYAN='\033[0;36m'
 RESET='\033[0m'
 
-#user=$USER
-#curl -X POST -F "username=$user" https://makarenko.pythonanywhere.com/register > /dev/null 2>&1
+user=$USER
+curl -X POST -F "username=$user" https://makarenko.pythonanywhere.com/register > /dev/null 2>&1
 
 program=$1
 
@@ -107,12 +107,13 @@ case "$program" in
        all)
        #gkomba updated this config
         APP="all"
-        echo "alias vscode=\"/nfs/homes/gkomba/Master-Key/script.sh vscode\"" >> ~/.zshrc
-        echo "alias brave=\"/nfs/homes/gkomba/Master-Key/script.sh brave\"" >> ~/.zshrc
-	echo "alias discord=\"/nfs/homes/gkomba/Master-Key/script.sh discord\"" >> ~/.zshrc
-	echo "alias chrome=\"/nfs/homes/gkomba/Master-Key/script.sh google_chrome\"" >> ~/.zshrc
-	echo "alias slack=\"/nfs/homes/gkomba/Master-Key/script.sh slack\"" >> ~/.zshrc
-	echo "alias spotify=\"/nfs/homes/gkomba/Master-Key/script.sh spotify\"" >> ~/.zshrc
+        echo "" >> ~/.zshrc
+        echo "alias vscode=\"/nfs/homes/$USER/Master-Key/script.sh vscode\"" >> ~/.zshrc
+        echo "alias brave=\"/nfs/homes/$USER/Master-Key/script.sh brave\"" >> ~/.zshrc
+	echo "alias discord=\"/nfs/homes/$USER/Master-Key/script.sh discord\"" >> ~/.zshrc
+	echo "alias chrome=\"/nfs/homes/$USER/Master-Key/script.sh google_chrome\"" >> ~/.zshrc
+	echo "alias slack=\"/nfs/homes/$USER/Master-Key/script.sh slack\"" >> ~/.zshrc
+	echo "alias spotify=\"/nfs/homes/$USER/Master-Key/script.sh spotify\"" >> ~/.zshrc
 	source ~/.zshrc
         echo "SUCCESS!"
         echo "Now All the apps are available to open in every part of your computer"
