@@ -28,4 +28,4 @@ Uma ferramenta destinada a cadetes e pisciners da escola 42
 
 ## Reportando Bugs
 
-Se você encontrar algum bug ou tiver sugestões de melhorias, entre em contato comigo pelo email: [mrbdoy@outlook.pt](mailto:edmilsonander83@gmail.com).
+Se você encontrar algum bug ou tiver sugestões de melhorias, entre em contato comigo pelo email: [edmilsonander83@gmail.com](mailto:edmilsonander83@gmail.com).
