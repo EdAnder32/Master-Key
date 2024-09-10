@@ -1,6 +1,6 @@
 # Master Key
 
-![Master Key](https://github.com/EdAnder32/Master-Key/blob/main/exec/img.jpg)
+![Master Key](https://github.com/EdAnder32/Master-Key/blob/main/img.jpg)
 
 ## Descrição
 Uma ferramenta poderosa capaz de abrir todos os aplicativos que não abrem nos computadores do campus!!
