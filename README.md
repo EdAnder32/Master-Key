@@ -1,6 +1,6 @@
 # Master Key
 
-![Master Key](https://github.com/mr-body/Master-Key/blob/main/exec/img.jpg)
+![Master Key](https://github.com/EdAnder32/Master-Key/blob/main/exec/img.jpg)
 
 ## Descrição
 Uma ferramenta poderosa capaz de abrir todos os aplicativos que não abrem nos computadores do campus!!
@@ -11,7 +11,7 @@ Uma ferramenta destinada a cadetes e pisciners da escola 42
 
 1. Clone o repositório:
     ```bash
-    git clone https://github.com/mr-body/Master-Key.git
+    git clone https://github.com/EdAnder32/Master-Key.git
     ```
 2. Navegue até o diretório do projeto:
     ```bash
@@ -23,7 +23,7 @@ Uma ferramenta destinada a cadetes e pisciners da escola 42
     ```
 4. Execute o script:
     ```bash
-    ./app
+    ./script.sh
     ```
 
 ## Reportando Bugs
