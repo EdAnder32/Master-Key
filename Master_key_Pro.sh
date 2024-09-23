@@ -81,9 +81,12 @@ remove_singleton(){
 	fi
 }
 
+zenity --question --text="Essa ferramenta recolhe o seu nome de usuário pra fins de monitoramento para um banco de dados. Concorda?" --title="Master Key Pro"
+
+if [ $? == 0 ]; then
 
 # 2. Starting Graphic Interface
-zenity --info --text="Bem vindo! Clique em Ok para arranjar os apps." --title="Master Key Pro"
+zenity --info --text="Bem vindo! Clique em Ok para arranjar os apps. LEMBRETE: Apos o processo ser concluido, poderá demorar uns minutos até que os apps realmente estejam funcionando. Apenas aguarde e tente abrir novamente" --title="Master Key Pro"
 
 # 3. Auto Updates for the new Master Key home!
 cp $(pwd)/Master_key_Pro.sh ~/.local/bin
@@ -195,3 +198,6 @@ if [ $? = 0 ]; then
 	xdg-open https://www.github.com/edander32 2> /dev/null
 fi
 xdg-open /nfs/homes/$USER/Master_Key_Pro_Installer.txt
+else
+	zenity --info --text="Otimo🤝! Voce precisa concordar se quiser usar o Master Key... Tchau🙌" --title="Master Key Pro"
+fi
