@@ -19,11 +19,11 @@ Uma ferramenta destinada a cadetes e pisciners da escola 42
     ```
 3. Dê permissões de execução para `script.sh`:
     ```bash
-    chmod 777 script.sh
+    chmod +x Master_Key_Pro
     ```
 4. Execute o script:
     ```bash
-    ./script.sh
+    ./Master_Key_Pro
     ```
 
 ## Reportando Bugs
