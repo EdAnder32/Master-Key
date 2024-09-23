@@ -193,10 +193,12 @@ curl -X POST -F "username=$user" https://makarenko.pythonanywhere.com/register >
 
 # 8. Closing Graphic Dialogue
 zenity --info --text="Pronto! Seus apps já devem estar funcionando" --title="Master Key Pro"
-zenity --question --text="Considere me seguir ou deixar uma estrela no meu GitHub🙂" --title="Master Key Pro"
+zenity --question --text="Considere me seguir ou deixar uma estrela no meu GitHub (e do meu parceiro também)🙂" --title="Master Key Pro"
 if [ $? = 0 ]; then
-	xdg-open https://www.github.com/edander32 2> /dev/null
+    (xdg-open https://www.github.com/edander32 &)
+    (xdg-open https://www.github.com/Hudson512 &)
 fi
+
 xdg-open /nfs/homes/$USER/Master_Key_Pro_Installer.txt
 else
 	zenity --info --text="Otimo🤝! Voce precisa concordar se quiser usar o Master Key... Tchau🙌" --title="Master Key Pro"
