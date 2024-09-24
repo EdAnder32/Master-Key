@@ -98,11 +98,11 @@ case $choice in
 		rm -f /nfs/homes/$USER/Master_Key_Pro_Installer.txt
 		rm -f /nfs/homes/$USER/.local/bin/Master_key_Pro.sh
 		rm -f /nfs/homes/$USER/.local/share/applications/*.desktop
-		zenity --info --text="Pronto! O Master Key e todos seus scripts foram apagados do seu sistema" --title="Bye"
+		zenity --info --text="Pronto! O Master Key e todos seus scripts foram apagados do seu sistema. Para voltar ao seu sistema antigo precisa fazer logout e depois login novamente" --title="Bye"
 		exit 0
 	;;
 	*)
-	zenity --error --text="Ótimo! Pode Fechar o app pressionando 'Ok'" --title="Bye"
+	zenity --error --text="Acabou de cancelar o processo! Se não clicou em cancelar, deveria ter selecionado uma escolha antes de clicar em  'Ok'! Neste caso, tente novamente" --title="Bye"
 	exit 0
 esac
 	
@@ -305,7 +305,7 @@ EOF
 
 
 		# 6. Preparing autostarting for Master Key
-		cd ~/.config/autostart
+		mkdir -p ~/.config/autostart && cd ~/.config/autostart
 		if [ ! -f "Master_key_Pro.sh" ]; then
 			echo -e "[Desktop Entry]\nType=Application\nExec=/nfs/homes/$USER/.local/bin/Master_key_Pro.sh\nHidden=false\nNoDisplay=false\nX-GNOME-Autostart-enabled=true\nName=Master Key Pro\nComment=Iniciar o script de inicialização no login" > Master_key_Pro.desktop
 fi
