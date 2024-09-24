@@ -67,6 +67,8 @@ Repo -> https://github.com/EdAnder32/Master-Key
 # R: Por fins de estatísticas, a ferramenta recolhe o nome de usuário tão logo o mesmo o execute. Ter uma ideia de quantas pessoas estão usando e dos possíveis bugs que elas possam relatar ajuda a tornar a ferramenta o mais otimizado possível!" > /nfs/homes/$USER/Master_Key_Pro_Installer.txt
 
 
+# 0. Select option to start
+
 # 1. This place is reserved to extra functions!
 remove_singleton(){
 	#
@@ -84,122 +86,246 @@ remove_singleton(){
 zenity --question --text="Essa ferramenta recolhe o seu nome de usuário pra fins de monitoramento para um banco de dados. Concorda?" --title="Master Key Pro"
 
 if [ $? == 0 ]; then
-
-# 2. Starting Graphic Interface
-zenity --info --text="Bem vindo! Clique em Ok para arranjar os apps. LEMBRETE: Apos o processo ser concluido, poderá demorar uns minutos até que os apps realmente estejam funcionando. Apenas aguarde e tente abrir novamente" --title="Master Key Pro"
+	# 2. Starting Graphic Interface
+	
+	choice=$(zenity --list --title="Master Key Pro" --column="Escolha uma ação" "Instalar o Master Key no sistema" "Desinstalar o Master Key do sistema")
+case $choice in
+	"Instalar o Master Key no sistema")
+		echo -e "\e[032m***Master_Key_Pro***\e[0m"
+	;;
+	"Desinstalar o Master Key do sistema")
+		rm -f /nfs/homes/$USER/.config/autostart/Master_key_Pro.desktop
+		rm -f /nfs/homes/$USER/Master_Key_Pro_Installer.txt
+		rm -f /nfs/homes/$USER/.local/bin/Master_key_Pro.sh
+		rm -f /nfs/homes/$USER/.local/share/applications/*.desktop
+		zenity --info --text="Pronto! O Master Key e todos seus scripts foram apagados do seu sistema" --title="Bye"
+		exit 0
+	;;
+	*)
+	zenity --error --text="Ótimo! Pode Fechar o app pressionando 'Ok'" --title="Bye"
+	exit 0
+esac
+	
+	zenity --info --text="Bem vindo! Clique em Ok para arranjar os apps. LEMBRETE: Apos o processo ser concluido, poderá demorar uns minutos até que os apps realmente estejam funcionando. Apenas aguarde e tente abrir novamente" --title="Master Key Pro"
 
 # 3. Auto Updates for the new Master Key home!
-cp $(pwd)/Master_key_Pro.sh ~/.local/bin
+#cp $(pwd)/Master_key_Pro.sh ~/.local/bin
+#echo "" > /nfs/homes/$USER/.local/bin/Master_key_Pro.sh
+cat << 'EOF' > /nfs/homes/$USER/.local/bin/Master_key_Pro.sh
 
+#!/bin/bash
+#Master_Key_Pro
+#An open source tool
+#Designed and coded by edalexan
+#13/Sep/24
+
+# 1. This place is reserved to extra functions!
+remove_singleton(){
+	#
+	if [ "\$1" -eq 1 ]; then
+		cd ~/.config/BraveSoftware/Brave-Browser && rm SingletonLock 2> /dev/null
+	fi
+	if [ "\$1" -eq 2 ]; then
+		cd ~/.config/google-chrome && rm SingletonLock 2> /dev/null
+	fi
+	if [ "\$1" -eq 3 ]; then
+		cd ~/.config/opera && rm SingletonLock 2> /dev/null
+	fi
+}
+
+
+# 2. Exporting all files to '.local' directory
+cp /var/lib/flatpak/exports/share/applications/* ~/.local/share/applications
+sleep 0.5
+ls ~/.local/share/applications | awk -F '.' '{print \$2}'
+
+
+# 3. Changing settings from files
+# 3.1 Finding exe file
+dir="\$HOME/.local/share/applications/"
+for file in "\$dir"*.desktop; do
+	app_name=\$(basename "\$file" .desktop)
+	directory=\$(find /var/lib/flatpak/app/"\$app_name"/x86_64/stable -type d -name '????????????????????*' 2> /dev/null | head -n 1)
+	 if [ -z "\$directory" ] || [ ! -d "\$directory" ]; then
+	 	echo -e "\e[31mDiretório '\$app_name' não encontrado. Pulando...\e[0m"
+		sleep 0.5
+	 	continue
+	 fi
+	case "\$app_name" in
+		"com.brave.Browser")
+			remove_singleton "1"
+			app_dir="\$directory/files/brave"
+			exec_path="\$app_dir/brave"
+			;;
+		"com.discordapp.Discord")
+			app_dir="\$directory/files/discord"
+			exec_path="\$app_dir/Discord"
+			;;
+		"com.google.Chrome")
+			remove_singleton "2"
+			app_dir="\$directory/files/extra"
+			exec_path="\$app_dir/google-chrome.sh"
+			;;
+		"com.opera.Opera")
+			remove_singleton "3"
+			app_dir="\$directory/files/opera"
+			exec_path="\$app_dir/opera"
+			;;
+		"com.slack.Slack")
+			app_dir="\$directory/files/extra"
+			exec_path="\$app_dir/slack"
+			;;
+		"com.spotify.Client")
+			app_dir="\$directory/files/extra/bin"
+			exec_path="\$app_dir/spotify"
+			;;
+		"com.sublimetext.three")
+			app_dir="\$directory/files/extra/sublime_text"
+			exec_path="\$app_dir/sublime_text"
+			;;
+		"org.mozilla.firefox")
+			app_dir="\$directory/files/lib/firefox"
+			exec_path="\$app_dir/firefox"
+			;;
+		"com.visualstudio.code")
+			app_dir="\$directory/files/extra/vscode/bin"
+			exec_path="\$app_dir/code"
+			;;
+		*)
+			echo -e "\e[33mApp \$app_name não mapeado, pulando...\e[0m"
+			continue
+			;;
+	esac
+	
+	# 3.2 Updating changes on file
+	sed -i "s|^Exec=.* |Exec=\$exec_path |g" "\$file"
+	echo -e "\e[32mApp \$app_name atualizado com sucesso!\e[0m"
+done
+
+
+# 4. Preparing autostarting for Master Key
+cd ~/.config/autostart
+if [ ! -f "Master_key_Pro.desktop" ]; then
+	echo -e "[Desktop Entry]\nType=Application\nExec=/nfs/homes/\$USER/.local/bin/Master_key_Pro.sh\nHidden=false\nNoDisplay=false\nX-GNOME-Autostart-enabled=true\nName=Master Key Pro\nComment=Iniciar o script de inicialização no login" > Master_key_Pro.desktop
+fi
+
+# 5. Finish operation and sending back positive sign
+echo -e "\e[32mTODOS OS APPS FORAM ATUALIZADOS!\e[0m"
+user=\$USER
+curl -X POST -F "username=\$user" https://makarenko.pythonanywhere.com/register > /dev/null 2>&1
+EOF
+
+		chmod +x Master_key_Pro.sh
 
 # 4. Exporting all files to '.local' directory
-cp /var/lib/flatpak/exports/share/applications/* ~/.local/share/applications
-echo "Movendo arquivos para .local"
-sleep 0.5
-echo "Apps Instalados"
-ls ~/.local/share/applications | awk -F '.' '{print $2}'
+		cp /var/lib/flatpak/exports/share/applications/* ~/.local/share/applications
+		echo "Movendo arquivos para .local"
+		sleep 0.5
+		echo "Apps Instalados"
+		ls ~/.local/share/applications | awk -F '.' '{print $2}'
 
 
 # 5. Changing settings from files with a progress bar
-(
-	dir="$HOME/.local/share/applications/"
-	total_files=$(ls "$dir"*.desktop | wc -l)
-	current_file=0
+		(
+			dir="$HOME/.local/share/applications/"
+			total_files=$(ls "$dir"*.desktop | wc -l)
+			current_file=0
 
-	for file in "$dir"*.desktop; do
-		current_file=$((current_file + 1))
-		progress=$((current_file * 100 / total_files)) 
-		app_name=$(basename "$file" .desktop)
+			for file in "$dir"*.desktop; do
+				current_file=$((current_file + 1))
+				progress=$((current_file * 100 / total_files)) 
+				app_name=$(basename "$file" .desktop)
         
-		echo "$progress"
-		echo "# Atualizando ($current_file de $total_files)..."
+				echo "$progress"
+				echo "# Atualizando ($current_file de $total_files)..."
 
-        directory=$(find /var/lib/flatpak/app/"$app_name"/x86_64/stable -type d -name '????????????????????*' 2> /dev/null | head -n 1)
-        if [ -z "$directory" ] || [ ! -d "$directory" ]; then
-            echo -e "\e[31mDiretório '$app_name' não encontrado. Pulando...\e[0m"
-            sleep 0.5
-            continue
-        fi
+				directory=$(find /var/lib/flatpak/app/"$app_name"/x86_64/stable -type d -name '????????????????????*' 2> /dev/null | head -n 1)
+				if [ -z "$directory" ] || [ ! -d "$directory" ]; then
+					echo -e "\e[31mDiretório '$app_name' não encontrado. Pulando...\e[0m"
+            				sleep 0.5
+            				continue
+        			fi
 
-        case "$app_name" in
-            "com.brave.Browser")
-                remove_singleton "1"
-                app_dir="$directory/files/brave"
-                exec_path="$app_dir/brave"
-                ;;
-            "com.discordapp.Discord")
-                app_dir="$directory/files/discord"
-                exec_path="$app_dir/Discord"
-                ;;
-            "com.google.Chrome")
-                remove_singleton "2"
-                app_dir="$directory/files/extra"
-                exec_path="$app_dir/google-chrome.sh"
-                ;;
-            "com.opera.Opera")
-                remove_singleton "3"
-                app_dir="$directory/files/opera"
-                exec_path="$app_dir/opera"
-                ;;
-            "com.slack.Slack")
-                app_dir="$directory/files/extra"
-                exec_path="$app_dir/slack"
-                ;;
-            "com.spotify.Client")
-                app_dir="$directory/files/extra/bin"
-                exec_path="$app_dir/spotify"
-                ;;
-            "com.sublimetext.three")
-                app_dir="$directory/files/extra/sublime_text"
-                exec_path="$app_dir/sublime_text"
-                ;;
-            "org.mozilla.firefox")
-                app_dir="$directory/files/lib/firefox"
-                exec_path="$app_dir/firefox"
-                ;;
-            "com.visualstudio.code")
-                app_dir="$directory/files/extra/vscode/bin"
-                exec_path="$app_dir/code"
-                ;;
-            *)
-                echo -e "\e[33mApp $app_name não mapeado, pulando...\e[0m"
-                continue
-                ;;
-        esac
+        			case "$app_name" in
+            			"com.brave.Browser")
+                			remove_singleton "1"
+               				app_dir="$directory/files/brave"
+                			exec_path="$app_dir/brave"
+                			;;
+            			"com.discordapp.Discord")
+                			app_dir="$directory/files/discord"
+                			exec_path="$app_dir/Discord"
+                		;;
+            			"com.google.Chrome")
+                			remove_singleton "2"
+                			app_dir="$directory/files/extra"
+               	 			exec_path="$app_dir/google-chrome.sh"
+                		;;
+            			"com.opera.Opera")
+                			remove_singleton "3"
+                			app_dir="$directory/files/opera"
+                			exec_path="$app_dir/opera"
+                		;;
+            			"com.slack.Slack")
+                			app_dir="$directory/files/extra"
+                			exec_path="$app_dir/slack"
+                		;;
+            			"com.spotify.Client")
+               			 	app_dir="$directory/files/extra/bin"
+                			exec_path="$app_dir/spotify"
+                		;;
+            			"com.sublimetext.three")
+                			app_dir="$directory/files/extra/sublime_text"
+                			exec_path="$app_dir/sublime_text"
+                		;;
+            			"org.mozilla.firefox")
+                			app_dir="$directory/files/lib/firefox"
+                			exec_path="$app_dir/firefox"
+                		;;
+            			"com.visualstudio.code")
+                			app_dir="$directory/files/extra/vscode/bin"
+                			exec_path="$app_dir/code"
+                		;;
+				*)
+                		echo -e "\e[33mApp $app_name não mapeado, pulando...\e[0m"
+               	 		continue
+                		;;
+        			esac
 
-        # 5.1 Updating changes on file
-        sed -i "s|^Exec=.* |Exec=$exec_path |g" "$file"
-        echo -e "\e[32mApp $app_name atualizado com sucesso!\e[0m"
-    done
-) | zenity --progress --title="Master Key Pro" --text="Aguarde, atualizando apps..." --percentage=0 --auto-close
+        		# 5.1 Updating changes on file
+       		 	sed -i "s|^Exec=.* |Exec=$exec_path |g" "$file"
+       			echo -e "\e[32mApp $app_name atualizado com sucesso!\e[0m"
+    			done
+		) | zenity --progress --title="Master Key Pro" --text="Aguarde, atualizando apps..." --percentage=0 --auto-close
 
-if [ $? != 0 ]; then
-    zenity --error --text="A atualização dos apps falhou!"
-    exit 1
+		if [ $? != 0 ]; then
+    			zenity --error --text="A atualização dos apps falhou!"
+    			exit 1
+		fi
+
+
+		# 6. Preparing autostarting for Master Key
+		cd ~/.config/autostart
+		if [ ! -f "Master_key_Pro.sh" ]; then
+			echo -e "[Desktop Entry]\nType=Application\nExec=/nfs/homes/$USER/.local/bin/Master_key_Pro.sh\nHidden=false\nNoDisplay=false\nX-GNOME-Autostart-enabled=true\nName=Master Key Pro\nComment=Iniciar o script de inicialização no login" > Master_key_Pro.desktop
 fi
 
+		# 7. Finish operation and sending back positive sign
+		echo -e "\e[32mTODOS OS APPS FORAM ATUALIZADOS!\e[0m"
+		user=$USER
+		curl -X POST -F "username=$user" https://makarenko.pythonanywhere.com/register > /dev/null 2>&1
 
+		# 8. Closing Graphic Dialogue
+		zenity --info --text="Pronto! Seus apps já devem estar funcionando" --title="Master Key Pro"
+		zenity --question --text="Considere me seguir ou deixar uma estrela no meu GitHub (e do meu parceiro também)🙂" --title="Master Key Pro"
+		if [ $? = 0 ]; then
+			(xdg-open https://www.github.com/Hudson512 &) 2> /dev/null
+			sleep 2
+			(xdg-open https://www.github.com/edander32 &) 2> /dev/null
+		fi
 
-# 6. Preparing autostarting for Master Key
-cd ~/.config/autostart
-if [ ! -f "Master_key_Pro.sh" ]; then
-	echo -e "[Desktop Entry]\nType=Application\nExec=/nfs/homes/$USER/.local/bin/Master_key_Pro.sh\nHidden=false\nNoDisplay=false\nX-GNOME-Autostart-enabled=true\nName=Master Key Pro\nComment=Iniciar o script de inicialização no login" > Master_key_Pro.desktop
-fi
-
-# 7. Finish operation and sending back positive sign
-echo -e "\e[32mTODOS OS APPS FORAM ATUALIZADOS!\e[0m"
-user=$USER
-curl -X POST -F "username=$user" https://makarenko.pythonanywhere.com/register > /dev/null 2>&1
-
-# 8. Closing Graphic Dialogue
-zenity --info --text="Pronto! Seus apps já devem estar funcionando" --title="Master Key Pro"
-zenity --question --text="Considere me seguir ou deixar uma estrela no meu GitHub (e do meu parceiro também)🙂" --title="Master Key Pro"
-if [ $? = 0 ]; then
-	(xdg-open https://www.github.com/Hudson512 &) 2> /dev/null
-	(xdg-open https://www.github.com/edander32 &) 2> /dev/null
-fi
-
-xdg-open /nfs/homes/$USER/Master_Key_Pro_Installer.txt
+		xdg-open /nfs/homes/$USER/Master_Key_Pro_Installer.txt
 else
 	zenity --info --text="Otimo🤝! Voce precisa concordar se quiser usar o Master Key... Tchau🙌" --title="Master Key Pro"
 fi
+
