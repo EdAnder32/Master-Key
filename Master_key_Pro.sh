@@ -1,9 +1,9 @@
 #!/bin/bash
 #Master_Key_Pro
 #An open source tool
-#Designed and coded by edalexan
+#Designed and coded by edalexan | a project for 42 School
 #13/Sep/24
-VERSAO_ATUAL="1.0.0"
+VERSAO_ATUAL="1.0.1"
 
 #AN LITLE INTRO
 echo "#Master_Key_Pro
@@ -107,7 +107,7 @@ case $choice in
 	exit 0
 esac
 	
-	zenity --info --text="Bem vindo! Clique em Ok para arranjar os apps. LEMBRETE: Apos o processo ser concluido, poderá demorar uns minutos até que os apps realmente estejam funcionando. Apenas aguarde e tente abrir novamente. Caso eles não abram após clicar nos ícones tente pesquisar o app pelo nome e clicar em Enter" --title="Master Key Pro"
+	zenity --info --text="Bem vindo! Clique em Ok para arranjar os apps. LEMBRETE: Apos o processo ser concluido, poderá demorar uns minutos até que os apps realmente estejam funcionando. Apenas aguarde e tente abrir novamente. Caso eles não abram após clicar nos ícones tente pesquisar o app pelo nome e clicar em Enter. Se tiver dúvidas, no fim desse processo irá se abrir um ReadMe. Leia completamente" --title="Master Key Pro"
 
 # 3. Auto Updates for the new Master Key home!
 mkdir -p ~/.config/.local/bin/
