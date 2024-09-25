@@ -224,13 +224,23 @@ curl -X POST -F "username=\$user" https://makarenko.pythonanywhere.com/register 
 			zenity --question --text="Existe uma nova versão do Master Key disponível Online. Deseja instalar?" --title="Nova versão Disponível🤩"
 			if [ $? = 0 ]; then
 				cd $INITIAL_DIR
-				pwd
 				NEW_NAME="Master_key_Pro"
-				curl -s -o $NEW_NAME $URL_SCRIPT
+				(
+					curl -s -o $NEW_NAME $URL_SCRIPT --progress-bar | while IFS= read -r line; do
+						progress=$(echo $line | grep -o '[0-9]\+%' | tr -d '%')
+						echo $progress
+					done
+				) | zenity --progress --title="Baixando Atualização" --text="Baixando nova versão do Master Key..." --percentage=0 --auto-close --auto-kill
 				chmod +x $NEW_NAME
 				echo "Script atualizado para a versão $VERSAO_DISPONIVEL."
-				./Master_key_Pro
+				zenity --question --text="O Master Key foi atualizado para a versão ($VERSAO_DISPONIVEL). Deseja rodar o script agora para instalar as novas modificações? Caso clique em não, os mods serão instalados em segundo plano na próxima vez que fizer login" --title="Atualização concluída!"
+				if [ $? = 0 ]; then
+					./Master_key_Pro
+				fi
 				exit 0
+			else
+				echo "Claro! Sem problemas!"
+			fi
 			else
 				exit 0
 			fi
@@ -240,7 +250,7 @@ curl -X POST -F "username=\$user" https://makarenko.pythonanywhere.com/register 
 		fi
 
 EOF
-		chmod +x Master_key_Pro.sh
+		chmod +x /nfs/homes/$USER/.local/bin/Master_key_Pro.sh
 
 # 4. Exporting all files to '.local' directory
 		cp /var/lib/flatpak/exports/share/applications/* ~/.local/share/applications
@@ -352,10 +362,18 @@ EOF
 			if [ $? = 0 ]; then
 				cd $INITIAL_DIR
 				NEW_NAME="Master_key_Pro"
-				curl -s -o $NEW_NAME $URL_SCRIPT
+				(
+					curl -s -o $NEW_NAME $URL_SCRIPT --progress-bar | while IFS= read -r line; do
+						progress=$(echo $line | grep -o '[0-9]\+%' | tr -d '%')
+						echo $progress
+					done
+				) | zenity --progress --title="Baixando Atualização" --text="Baixando nova versão do Master Key..." --percentage=0 --auto-close --auto-kill
 				chmod +x $NEW_NAME
 				echo "Script atualizado para a versão $VERSAO_DISPONIVEL."
-				./Master_key_Pro
+				zenity --question --text="O Master Key foi atualizado para a versão ($VERSAO_DISPONIVEL). Deseja rodar o script agora para instalar as novas modificações? Caso clique em não, os mods serão instalados em segundo plano na próxima vez que fizer login" --title="Atualização concluída!"
+				if [ $? = 0 ]; then
+					./Master_key_Pro
+				fi
 				exit 0
 			else
 				echo "Claro! Sem problemas!"
@@ -373,7 +391,7 @@ EOF
 			(xdg-open https://www.github.com/edander32 &) 2> /dev/null
 		fi
 
-		#xdg-open /nfs/homes/$USER/Master_Key_Pro_Installer.txt
+		xdg-open /nfs/homes/$USER/Master_Key_Pro_Installer.txt
 else
 	zenity --info --text="Otimo🤝! Voce precisa concordar se quiser usar o Master Key... Tchau🙌" --title="Master Key Pro"
 fi
