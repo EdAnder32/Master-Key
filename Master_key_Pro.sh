@@ -8,7 +8,7 @@ VERSAO_ATUAL="1.0.1"
 #AN LITLE INTRO
 echo "#Master_Key_Pro
 #An open source tool
-#Designed and coded by edalexan
+#Designed and coded by edalexan | a project for 42 School
 #13/Sep/24
 
 Repo -> https://github.com/EdAnder32/Master-Key
@@ -116,10 +116,11 @@ cat << 'EOF' > /nfs/homes/$USER/.local/bin/Master_key_Pro.sh
 #!/bin/bash
 #Master_Key_Pro
 #An open source tool
-#Designed and coded by edalexan
+#Designed and coded by edalexan | a project for 42 School
 #13/Sep/24
 
 # 1. This place is reserved to extra functions!
+VERSAO_ATUAL="1.0.1"
 remove_singleton(){
 	#
 	if [ "$1" -eq 1 ]; then
