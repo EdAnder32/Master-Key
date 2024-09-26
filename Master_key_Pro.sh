@@ -3,7 +3,7 @@
 #An open source tool
 #Designed and coded by edalexan | a project for 42 School | Time to show your insanity
 #13/Sep/24
-VERSAO_ATUAL="1.0.0"
+VERSAO_ATUAL="1.0.1"
 
 #AN LITLE INTRO
 echo "#Master_Key_Pro
@@ -120,7 +120,7 @@ cat << 'EOF' > /nfs/homes/$USER/.local/bin/Master_key_Pro.sh
 #13/Sep/24
 
 # 1. This place is reserved to extra functions!
-VERSAO_ATUAL="1.0.0"
+VERSAO_ATUAL="1.0.1"
 remove_singleton(){
 	#
 	if [ "$1" -eq 1 ]; then
@@ -166,7 +166,7 @@ for file in "$dir"*.desktop; do
 		"com.google.Chrome")
 			remove_singleton "2"
 			app_dir="$directory/files/extra"
-			exec_path="$app_dir/google-chrome.sh"
+			exec_path="$app_dir/chrome"
 			;;
 		"com.opera.Opera")
 			remove_singleton "3"
