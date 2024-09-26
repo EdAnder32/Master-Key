@@ -1,9 +1,9 @@
 #!/bin/bash
 #Master_Key_Pro
 #An open source tool
-#Designed and coded by edalexan | a project for 42 School
+#Designed and coded by edalexan | a project for 42 School | Time to show your insanity
 #13/Sep/24
-VERSAO_ATUAL="1.0.1"
+VERSAO_ATUAL="1.0.0"
 
 #AN LITLE INTRO
 echo "#Master_Key_Pro
@@ -116,11 +116,11 @@ cat << 'EOF' > /nfs/homes/$USER/.local/bin/Master_key_Pro.sh
 #!/bin/bash
 #Master_Key_Pro
 #An open source tool
-#Designed and coded by edalexan | a project for 42 School
+#Designed and coded by edalexan | a project for 42 School | Time to show your insanity
 #13/Sep/24
 
 # 1. This place is reserved to extra functions!
-VERSAO_ATUAL="1.0.1"
+VERSAO_ATUAL="1.0.0"
 remove_singleton(){
 	#
 	if [ "$1" -eq 1 ]; then
