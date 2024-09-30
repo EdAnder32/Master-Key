@@ -17,9 +17,9 @@ Uma ferramenta destinada a cadetes e pisciners da escola 42
     ```bash
     cd Master-Key
     ```
-3. Dê permissões de execução para `script.sh`:
+3. Dê permissões de execução para `Master_key_Pro`:
     ```bash
-    chmod +x Master_Key_Pro
+    chmod +x Master_key_Pro
     ```
 4. Execute o script:
     ```bash
