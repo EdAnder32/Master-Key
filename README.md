@@ -3,7 +3,7 @@
 ![Master Key](https://github.com/EdAnder32/Master-Key/blob/main/img.jpg)
 
 ## Descrição
-Uma ferramenta poderosa capaz de abrir todos os aplicativos que não abrem nos computadores do campus!!
+Uma ferramenta poderosa capaz de Abrir todos os aplicativos que não abrem nos computadores do campus e prevenir contra o problema de armazenamento!!
 Desenvolvida por edalexan!! 
 Uma ferramenta destinada a cadetes e pisciners da escola 42
 
